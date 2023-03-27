@@ -33,7 +33,7 @@ functions:
   ask-question:
     handler: handler.ask_question
     memorySize: 512
-    timeout: 3
+    timeout: 29
     events:
       - httpApi:
           method: POST

@@ -10,6 +10,8 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: ap-southeast-1
+  httpApi:
+    cors: true
   iam:
     role:
       statements:
@@ -34,8 +36,8 @@ functions:
     timeout: 3
     events:
       - httpApi:
-          path: ask
-          method: post
+          method: POST
+          path: /ask
 
 plugins:
   - serverless-python-requirements

@@ -33,7 +33,7 @@ functions:
     memorySize: 512
     timeout: 30
     events:
-      - http:
+      - httpApi:
           path: ask-question
           method: post
           cors: true

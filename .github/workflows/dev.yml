@@ -1,0 +1,47 @@
+#
+# Github Actions for Serverless Framework
+#
+# Create AWS_KEY and AWS_SECRET secrets in Github repository settings
+# If you're using env.yml file, store its content as ENV Github secret
+#
+# Master branch will be deployed as DEV and every new tag starting with "v**" (e.g. v1.0, v1.2, v2.0, etc) will be deployed as PROD
+#
+# Learn more: https://maxkostinevich.com/blog/how-to-deploy-serverless-applications-using-github-actions/
+#
+
+name: Deploy Dev
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup NodeJS 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+      - name: Serverless AWS authentication
+        run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }}
+      # The following commands needed for local installation only
+      #    - name: Install Python Requirements plugin
+      #      run: cd scikit-example;sls plugin install -n serverless-python-requirements
+      #    - name: Install Warmup plugin
+      #      run: pwd;cd scikit-example;sls plugin install -n serverless-plugin-warmup
+      #    - name: Install API Gateway Throttling plugin
+      #      run: pwd;cd scikit-example;sls plugin install -n serverless-api-gateway-throttling
+      - name: Install plugins
+        run: npm install
+
+      - name: Deploy Lambda functions
+        run: sls deploy
+
+      - name: Test Lambda functions
+        run: sls invoke --function ask-question --path "$(pwd)/event.json"

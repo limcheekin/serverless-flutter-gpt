@@ -1,0 +1,10 @@
+{
+  "name": "serverless-flutter-gpt",
+  "description": "Flutter GPT hosted in AWS Lambda",
+  "version": "0.1.0",
+  "devDependencies": {
+    "serverless-api-gateway-throttling": "^2.0.3",
+    "serverless-plugin-warmup": "^8.2.1",
+    "serverless-python-requirements": "^6.0.0"
+  }
+}

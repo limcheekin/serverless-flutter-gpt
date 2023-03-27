@@ -1,0 +1,60 @@
+service: serverless-flutter-gpt
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  apiGateway:
+    shouldStartNameWithService: true
+  runtime: python3.9
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-southeast-1
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "lambda:InvokeFunction"
+          Resource: "*"
+
+package:
+  exclude:
+    - .npmignore
+    - .vscode/**
+    - package.json
+    - package-lock.json
+    - (*).ipynb
+    - node_modules/**
+
+functions:
+  ask-question:
+    handler: handler.ask_question
+    memorySize: 512
+    timeout: 30
+    events:
+      - http:
+          path: ask-question
+          method: post
+          cors: true
+
+plugins:
+  - serverless-python-requirements
+  - serverless-plugin-warmup
+  - serverless-api-gateway-throttling
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
+  # https://github.com/juanjoDiaz/serverless-plugin-warmup
+  warmup:
+    twentyFourHoursWarmer:
+      enabled: true
+      events:
+        - schedule: cron(*/5 * ? * * *)
+      concurrency: 1
+  # https://github.com/DianaIonita/serverless-api-gateway-throttling
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 1
+    maxConcurrentRequests: 1

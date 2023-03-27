@@ -31,12 +31,11 @@ functions:
   ask-question:
     handler: handler.ask_question
     memorySize: 512
-    timeout: 30
+    timeout: 3
     events:
       - httpApi:
-          path: ask-question
+          path: ask
           method: post
-          cors: true
 
 plugins:
   - serverless-python-requirements

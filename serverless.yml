@@ -24,20 +24,13 @@ package:
   exclude:
     - .npmignore
     - .vscode/**
+    - .github/**
     - package.json
     - package-lock.json
     - (*).ipynb
     - node_modules/**
-
-functions:
-  ask-question:
-    handler: handler.ask_question
-    memorySize: 512
-    timeout: 29
-    events:
-      - httpApi:
-          method: POST
-          path: /ask
+    - venv/**
+    - LICENSE
 
 plugins:
   - serverless-python-requirements
@@ -59,3 +52,16 @@ custom:
   apiGatewayThrottling:
     maxRequestsPerSecond: 1
     maxConcurrentRequests: 1
+
+functions:
+  ask-question:
+    handler: handler.ask_question
+    memorySize: 512
+    timeout: 29
+    events:
+      - httpApi:
+          method: POST
+          path: /ask
+          throttling:
+            maxRequestsPerSecond: 3
+            maxConcurrentRequests: 2

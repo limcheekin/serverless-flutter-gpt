@@ -1,0 +1,7 @@
+{
+  "body": {
+    "contextobj": ["{\"botname\":\"FlutterGPT\"}"],
+    "senderobj": ["{\"display\":\"Chee Kin\"}"],
+    "messageobj": ["{\"text\":\"/about\"}"]
+  }
+}

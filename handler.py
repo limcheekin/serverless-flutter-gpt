@@ -68,18 +68,17 @@ def ask_question(event, context):
         messageobj = json.loads(body['messageobj'][0])
         qa_chain = get_chain(model, prompt)
         question = messageobj['text']
-        match question:
-            case "/start":
-                message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking me anything about Flutter."
-            case "/help":
-                message = "I'm an AI chatbot that can answer questions about Flutter.\nType /start to start asking questions.\nType /about to find out more about me and my creator."
-            case "/about":
-                message = f"I'm {context['botname']}, my knowledge is derived from https://docs.flutter.dev/ since March 2023 and created by @limcheekin, feel free to contact me at https://www.linkedin.com/in/limcheekin/."
-            case _:
-                result = qa_chain({"question": question})
-                message = result['answer']
-                print("\n\n")
-                print(result)
+        if question == "/start":
+            message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking me anything about Flutter."
+        elif question == "/help":
+            message = "I'm an AI chatbot that can answer questions about Flutter.\nType /start to start asking questions.\nType /about to find out more about me and my creator."
+        elif question == "/about":
+            message = f"I'm {context['botname']}, my knowledge is derived from https://docs.flutter.dev/ since March 2023 and created by @limcheekin, feel free to contact me at https://www.linkedin.com/in/limcheekin/."
+        else:
+            result = qa_chain({"question": question})
+            message = result['answer']
+            print("\n\n")
+            print(result)
 
     print(message)
 

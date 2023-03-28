@@ -44,4 +44,4 @@ jobs:
         run: sls deploy
 
       - name: Test Lambda functions
-        run: sls invoke --function ask-question --path "$(pwd)/event.json"
+        run: sls invoke --function ask-question --path "$(pwd)/event.json";sls invoke --function webhook --path "$(pwd)/webhook_event.json"

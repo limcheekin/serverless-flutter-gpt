@@ -74,13 +74,3 @@ functions:
           throttling:
             maxRequestsPerSecond: 3
             maxConcurrentRequests: 2
-
-  webhook:
-    handler: handler.webhook
-    events:
-      - httpApi:
-          method: POST
-          path: /webhook
-    warmup:
-      default:
-        enabled: false

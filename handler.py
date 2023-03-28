@@ -80,4 +80,5 @@ def test_webhook():
     event = json.loads(file_contents)
     response = webhook(event, None)
 
-test_webhook()
+if __name__ == "__main__":
+    test_webhook()

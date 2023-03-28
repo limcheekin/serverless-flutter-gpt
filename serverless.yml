@@ -53,6 +53,16 @@ custom:
   apiGatewayThrottling:
     maxRequestsPerSecond: 3
     maxConcurrentRequests: 2
+  functions:
+    webhook:
+      handler: handler.webhook
+      events:
+        - httpApi:
+            method: POST
+            path: /webhook
+      warmup:
+        default:
+          enabled: false
 
 functions:
   ask-question:

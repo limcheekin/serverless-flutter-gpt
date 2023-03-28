@@ -1,0 +1,37 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /ask",
+  "rawPath": "/ask",
+  "rawQueryString": "",
+  "headers": {
+    "accept-encoding": "gzip",
+    "content-length": "556",
+    "content-type": "application/x-www-form-urlencoded",
+    "host": "g0ftyserai.execute-api.ap-southeast-1.amazonaws.com",
+    "user-agent": "okhttp/4.2.0",
+    "x-amzn-trace-id": "Root=1-64218ced-3976d9327c6f72b65a8c32b3",
+    "x-forwarded-for": "52.66.99.126",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "703930590955",
+    "apiId": "g0ftyserai",
+    "domainName": "g0ftyserai.execute-api.ap-southeast-1.amazonaws.com",
+    "domainPrefix": "g0ftyserai",
+    "http": {
+      "method": "POST",
+      "path": "/ask",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "52.66.99.126",
+      "userAgent": "okhttp/4.2.0"
+    },
+    "requestId": "CcL1KjdkyQ0EMsg=",
+    "routeKey": "POST /ask",
+    "stage": "$default",
+    "time": "27/Mar/2023:12:32:45 +0000",
+    "timeEpoch": 1679920365587
+  },
+  "body": "Ym90bmFtZT1GbHV0dGVyR1BUJmNoYW5uZWw9dGVsZWdyYW0mY29udGV4dG9iaj0lN0IlMjJjaGFubmVsdHlwZSUyMiUzQSUyMnRlbGVncmFtJTIyJTJDJTIyY29udGV4dHR5cGUlMjIlM0ElMjJwMnAlMjIlMkMlMjJjb250ZXh0aWQlMjIlM0ElMjIxNjQ2ODUwMTI3JTIyJTJDJTIyYm90bmFtZSUyMiUzQSUyMkZsdXR0ZXJHUFQlMjIlMkMlMjJwcmV2ZW50UmVwbHklMjIlM0FmYWxzZSUyQyUyMnNlbmRlck5hbWUlMjIlM0ElMjJDaGVlJTIwS2luJTIyJTJDJTIydHJhY2VJZCUyMiUzQSUyMjA3OWNlNGU5LTAwMGYtNDU2NS04MGVjLWRlYWE5ODdkZDI0ZiUyMiU3RCZzZW5kZXJvYmo9JTdCJTIyY2hhbm5lbHR5cGUlMjIlM0ElMjJ0ZWxlZ3JhbSUyMiUyQyUyMmNoYW5uZWxpZCUyMiUzQSUyMjE2NDY4NTAxMjclMjIlMkMlMjJkaXNwbGF5JTIyJTNBJTIyQ2hlZSUyMEtpbiUyMiU3RCZtZXNzYWdlb2JqPSU3QiUyMnR5cGUlMjIlM0ElMjJ0ZXh0JTIyJTJDJTIydGV4dCUyMiUzQSUyMiUyRnN0YXJ0JTIyJTJDJTIydGltZXN0YW1wJTIyJTNBMCUyQyUyMmlkJTIyJTNBJTIyMSUyMiU3RA==",
+  "isBase64Encoded": true
+}

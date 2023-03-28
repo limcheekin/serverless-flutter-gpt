@@ -10,6 +10,8 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: ap-southeast-1
+  memorySize: 512
+  timeout: 29
   httpApi:
     cors: true
   iam:
@@ -25,8 +27,7 @@ package:
     - .npmignore
     - .vscode/**
     - .github/**
-    - package.json
-    - package-lock.json
+    - (*).json
     - (*).ipynb
     - node_modules/**
     - venv/**
@@ -50,14 +51,12 @@ custom:
       concurrency: 1
   # https://github.com/DianaIonita/serverless-api-gateway-throttling
   apiGatewayThrottling:
-    maxRequestsPerSecond: 1
-    maxConcurrentRequests: 1
+    maxRequestsPerSecond: 3
+    maxConcurrentRequests: 2
 
 functions:
   ask-question:
     handler: handler.ask_question
-    memorySize: 512
-    timeout: 29
     events:
       - httpApi:
           method: POST
@@ -65,3 +64,13 @@ functions:
           throttling:
             maxRequestsPerSecond: 3
             maxConcurrentRequests: 2
+
+  webhook:
+    handler: handler.webhook
+    events:
+      - httpApi:
+          method: POST
+          path: /webhook
+    warmup:
+      default:
+        enabled: false

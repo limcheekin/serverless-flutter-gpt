@@ -53,7 +53,7 @@ def get_chain(vectorstore, prompt):
 
 def ask_question(event, context):
 
-    message = "The chatbot seems not functioning, please report the issue at https://github.com/limcheekin/serverless-flutter-gpt/issues."
+    message = "The chatbot seems not working!\nPlease report the issue/error at https://github.com/limcheekin/serverless-flutter-gpt/issues.\nThanks."
 
     print("event.get('source')", event.get("source"))
 
@@ -76,9 +76,11 @@ def ask_question(event, context):
         if question == "/start":
             message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking me anything about Flutter."
         elif question == "/help":
-            message = "I'm an AI chatbot that can answer questions about Flutter.\nType /start to start asking questions.\nType /about to find out more about me and my creator."
+            message = "Type one of the following commands:\n/start to start asking questions,\n/about to find out more about me and my creator,\n/feedback to feedback or report issue/error, or\n/help to see list of commands."
         elif question == "/about":
-            message = f"I'm {context['botname']}, my knowledge is derived from https://docs.flutter.dev/ since March 2023 and created by @limcheekin, feel free to contact me at https://www.linkedin.com/in/limcheekin/."
+            message = f"I'm {context['botname']}, an AI chatbot that can answer questions about Flutter.\nMy knowledge is derived from https://docs.flutter.dev/, cutoff date of March 2023 and created by @limcheekin, feel free to contact me at https://www.linkedin.com/in/limcheekin/."
+        elif question == "/feedback":
+            message = "Thanks for your feedback. Please share your idea or report any issue/error at https://github.com/limcheekin/serverless-flutter-gpt/issues."
         else:
             result = qa_chain({"question": question})
             message = result['answer']
@@ -97,45 +99,11 @@ def ask_question(event, context):
 
     return response
 
-def webhook(event, context):
-    body = event.get("body")
-
-    if event.get("isBase64Encoded"): 
-        base64_bytes = base64.b64decode(body)
-        body = base64_bytes.decode("utf-8")
-    
-    body = urllib.parse.parse_qs(body)
-    print(f"body:\n{body}")
-    context = json.loads(body['contextobj'][0])
-    sender = json.loads(body['senderobj'][0])
-    message = json.loads(body['messageobj'][0])
-
-    response = f"botname: {context['botname']}, channel: {context['channeltype']}, traceId: {context['traceId']}, contextid: {context['contextid']}, "
-    response += f"sender: {sender['display']}, "
-    response += f"message id: {message['id']}, type: {message['type']}, text: {message['text']}, timestamp: {message['timestamp']}"
-
-
-    print(response)
-    return {
-        "statusCode": 200,
-        "body": response,
-        "headers": {
-            "Content-Type": 'text/plain',
-        }
-    }   
-
 def test_ask_question(event_file):
     with open(event_file) as json_file:
         file_contents = json_file.read()
     event = json.loads(file_contents)
     response = ask_question(event, None)
-    print(f"response:\n{response}")
-
-def test_webhook():
-    with open('test/data/webhook_event.json') as json_file:
-        file_contents = json_file.read()
-    event = json.loads(file_contents)
-    response = webhook(event, None)
     print(f"response:\n{response}")
 
 if __name__ == "__main__":

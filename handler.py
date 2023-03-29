@@ -13,6 +13,8 @@ from langchain.vectorstores import Qdrant
 from langchain.embeddings import OpenAIEmbeddings
 from qdrant_client import QdrantClient
 
+CONVERSATIONAL_MEMORY_NOT_IMPLEMENTED="\nBy the way, I have a memory of a goldfish as the conversational memory is not implemented, so I don’t remember your previous questions or my answers. Please give me some context information when you ask me something, or I’ll just make up random stuff. :)"
+
 system_template="""Use the following pieces of context to answer the users question. 
 If you don't know the answer, just say "Hmm..., I'm not sure.", don't try to make up an answer.
 ALWAYS return a "Sources" part in your answer.
@@ -75,11 +77,11 @@ def ask_question(event, context):
         qa_chain = get_chain(qdrant, prompt)
         question = messageobj['text']
         if question == "/start":
-            message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking questions about Flutter."
+            message = f"Hello {senderobj['display']}, thanks for connecting. I'm {context['botname']}, you can type /help to get to know me.\nHow can I help you today?"
         elif question == "/help":
-            message = "Type one of the following commands:\n/start to start asking questions,\n/about to find out more about me and my creator,\n/feedback to feedback or report issue/error, or\n/help to see list of commands."
+            message = "It look like you need some help, type one of the following commands:\n/start to start asking questions,\n/about to find out more about me and my creator,\n/feedback to feedback or report issue/error, or\n/help to see list of commands."
         elif question == "/about":
-            message = f"I'm {context['botname']}, an AI chatbot that can answer questions about Flutter.\nMy knowledge is derived from https://docs.flutter.dev/, cutoff date of March 2023 and created by @limcheekin, feel free to contact him at https://www.linkedin.com/in/limcheekin/."
+            message = f"I'm {context['botname']}, an AI chatbot that can answer questions about Flutter.\nMy knowledge is derived from https://docs.flutter.dev/, cutoff date of March 2023 and created by @limcheekin, feel free to contact him at https://www.linkedin.com/in/limcheekin/.{CONVERSATIONAL_MEMORY_NOT_IMPLEMENTED}"
         elif question == "/feedback":
             message = "Thanks for your feedback. Please share your idea or report any issue/error at https://github.com/limcheekin/serverless-flutter-gpt/issues."
         else:

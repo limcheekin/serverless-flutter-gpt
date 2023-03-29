@@ -3,7 +3,7 @@
     "contextobj": ["{\"botname\":\"FlutterGPT\"}"],
     "senderobj": ["{\"display\":\"Chee Kin\"}"],
     "messageobj": [
-      "{\"text\":\"/What is the latest version of Flutter? Tell me the key features of this release.\"}"
+      "{\"text\":\"What is the latest version of Flutter? Tell me the key features of this release.\"}"
     ]
   }
 }

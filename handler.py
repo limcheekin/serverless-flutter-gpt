@@ -1,5 +1,5 @@
 import json
-import pickle
+import os
 import base64
 import urllib.parse
 from langchain.chains import VectorDBQAWithSourcesChain
@@ -9,23 +9,24 @@ from langchain.prompts.chat import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-
-# REF: https://www.kaggle.com/prmohanty/python-how-to-save-and-load-ml-models
-model_name = 'faiss_store.pkl'
-with open(model_name, 'rb') as file:  
-    model = pickle.load(file)
+from langchain.vectorstores import Qdrant
+from langchain.embeddings import OpenAIEmbeddings
+from qdrant_client import QdrantClient
 
 system_template="""Use the following pieces of context to answer the users question. 
 If you don't know the answer, just say "Hmm..., I'm not sure.", don't try to make up an answer.
-ALWAYS return a "Sources" part in your answer.
-The "Sources" part should be a reference to the source of the document from which you got your answer.
+ALWAYS return a "Learn More" part in your answer.
+The "Learn More" part should be a reference to the source of the document from which you got your answer.
+For the source of the document, replace "./site" to "https://docs.flutter.dev/".
 
 Example of your response should be:
 
 ```
 The answer is foo
 
-Sources: xyz
+Learn More: 
+1. abc
+2. xyz
 ```
 
 Begin!
@@ -66,7 +67,12 @@ def ask_question(event, context):
         context = json.loads(body['contextobj'][0])    
         senderobj = json.loads(body["senderobj"][0])
         messageobj = json.loads(body['messageobj'][0])
-        qa_chain = get_chain(model, prompt)
+        
+        url = os.environ.get("QDRANT_URL")
+        api_key = os.environ.get("QDRANT_API_KEY")
+        qdrant = Qdrant(QdrantClient(url=url, api_key=api_key), "docs_flutter_dev", embedding_function=OpenAIEmbeddings().embed_query)
+
+        qa_chain = get_chain(qdrant, prompt)
         question = messageobj['text']
         if question == "/start":
             message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking me anything about Flutter."

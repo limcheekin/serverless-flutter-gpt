@@ -74,7 +74,7 @@ def ask_question(event, context):
         qa_chain = get_chain(qdrant, prompt)
         question = messageobj['text']
         if question == "/start":
-            message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking me anything about Flutter."
+            message = f"Hello {senderobj['display']}, I'm {context['botname']}.\nType /help for list of commands, otherwise you can start asking questions about Flutter."
         elif question == "/help":
             message = "Type one of the following commands:\n/start to start asking questions,\n/about to find out more about me and my creator,\n/feedback to feedback or report issue/error, or\n/help to see list of commands."
         elif question == "/about":

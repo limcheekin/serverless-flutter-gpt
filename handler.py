@@ -78,7 +78,7 @@ def ask_question(event, context):
         elif question == "/help":
             message = "Type one of the following commands:\n/start to start asking questions,\n/about to find out more about me and my creator,\n/feedback to feedback or report issue/error, or\n/help to see list of commands."
         elif question == "/about":
-            message = f"I'm {context['botname']}, an AI chatbot that can answer questions about Flutter.\nMy knowledge is derived from https://docs.flutter.dev/, cutoff date of March 2023 and created by @limcheekin, feel free to contact me at https://www.linkedin.com/in/limcheekin/."
+            message = f"I'm {context['botname']}, an AI chatbot that can answer questions about Flutter.\nMy knowledge is derived from https://docs.flutter.dev/, cutoff date of March 2023 and created by @limcheekin, feel free to contact him at https://www.linkedin.com/in/limcheekin/."
         elif question == "/feedback":
             message = "Thanks for your feedback. Please share your idea or report any issue/error at https://github.com/limcheekin/serverless-flutter-gpt/issues."
         else:

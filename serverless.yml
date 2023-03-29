@@ -4,14 +4,11 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  apiGateway:
-    shouldStartNameWithService: true
   runtime: python3.9
-  lambdaHashingVersion: 20201221
   stage: dev
   region: ap-southeast-1
   memorySize: 512
-  timeout: 29
+  timeout: 120
   httpApi:
     cors: true
   iam:
@@ -58,6 +55,10 @@ custom:
 functions:
   ask-question:
     handler: handler.ask_question
+    # https://www.serverless.com/framework/docs/providers/aws/guide/functions#lambda-function-urls
+    url:
+      # Allow CORS for all requests from any origin
+      cors: true
     events:
       - httpApi:
           method: POST

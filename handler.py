@@ -15,15 +15,15 @@ from qdrant_client import QdrantClient
 
 system_template="""Use the following pieces of context to answer the users question. 
 If you don't know the answer, just say "Hmm..., I'm not sure.", don't try to make up an answer.
-ALWAYS return a "Learn More" part in your answer.
-The "Learn More" part should be a reference to the source of the document from which you got your answer.
+ALWAYS return a "Sources" part in your answer.
+The "Sources" part should be a reference to the source of the document from which you got your answer.
 
 Example of your response should be:
 
 ```
 The answer is foo
 
-Learn More: 
+Sources:
 1. abc
 2. xyz
 ```
@@ -47,7 +47,8 @@ def get_chain(vectorstore, prompt):
     ChatOpenAI(temperature=0), 
         chain_type="stuff", 
         vectorstore=vectorstore,
-        chain_type_kwargs=chain_type_kwargs
+        chain_type_kwargs=chain_type_kwargs,
+        reduce_k_below_max_tokens=True
     )
     return chain
 
@@ -84,6 +85,7 @@ def ask_question(event, context):
         else:
             result = qa_chain({"question": question})
             message = result['answer']
+            message = message.replace("./site", "https://docs.flutter.dev")
             print("\n\n")
             print(result)
 
@@ -105,9 +107,10 @@ def test_ask_question(event_file):
     event = json.loads(file_contents)
     response = ask_question(event, None)
     print(f"response:\n{response}")
-
+  
 if __name__ == "__main__":
     test_ask_question("test/data/event_start.json")
     test_ask_question("test/data/event_help.json")
     test_ask_question("test/data/event_about.json")
-    test_ask_question("test/data/event_question.json")
+    test_ask_question("test/data/event_question.json")   
+    test_ask_question("test/data/event_openai_cutoff.json")

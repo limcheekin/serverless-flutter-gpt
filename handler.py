@@ -38,6 +38,10 @@ messages = [
 ]
 prompt = ChatPromptTemplate.from_messages(messages)
 
+url = os.environ.get("QDRANT_URL")
+api_key = os.environ.get("QDRANT_API_KEY")
+qdrant = Qdrant(QdrantClient(url=url, api_key=api_key), "docs_flutter_dev", embedding_function=OpenAIEmbeddings().embed_query)
+
 def get_chain(vectorstore, prompt):
     chain_type_kwargs = {"prompt": prompt}
     chain = VectorDBQAWithSourcesChain.from_chain_type(
@@ -67,10 +71,6 @@ def ask_question(event, context):
         context = json.loads(body['contextobj'][0])    
         senderobj = json.loads(body["senderobj"][0])
         messageobj = json.loads(body['messageobj'][0])
-        
-        url = os.environ.get("QDRANT_URL")
-        api_key = os.environ.get("QDRANT_API_KEY")
-        qdrant = Qdrant(QdrantClient(url=url, api_key=api_key), "docs_flutter_dev", embedding_function=OpenAIEmbeddings().embed_query)
 
         qa_chain = get_chain(qdrant, prompt)
         question = messageobj['text']

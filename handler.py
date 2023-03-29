@@ -17,7 +17,6 @@ system_template="""Use the following pieces of context to answer the users quest
 If you don't know the answer, just say "Hmm..., I'm not sure.", don't try to make up an answer.
 ALWAYS return a "Learn More" part in your answer.
 The "Learn More" part should be a reference to the source of the document from which you got your answer.
-For the source of the document, replace "./site" to "https://docs.flutter.dev/".
 
 Example of your response should be:
 

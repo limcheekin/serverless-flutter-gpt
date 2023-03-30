@@ -1,10 +1,29 @@
 {
   "name": "serverless-flutter-gpt",
-  "description": "Flutter GPT hosted in AWS Lambda",
+  "description": "FlutterGPT, AI chatbot powered by OpenAI API, Qdrant, LangChain and AWS Lambda",
   "version": "0.1.0",
+  "main": "handler.py",
+  "keywords": [
+    "chatbot",
+    "openai-api",
+    "qdrant",
+    "langchain",
+    "aws-lambda",
+    "serverless-framework"
+  ],
+  "author": "Lim Chee Kin",
+  "license": "MIT",
   "devDependencies": {
     "serverless-api-gateway-throttling": "^2.0.3",
     "serverless-plugin-warmup": "^8.2.1",
     "serverless-python-requirements": "^6.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limcheekin/serverless-flutter-gpt"
+  },
+  "bugs": {
+    "url": "https://github.com/limcheekin/serverless-flutter-gpt/issues"
+  },
+  "homepage": "https://github.com/limcheekin/serverless-flutter-gpt#readme"
 }

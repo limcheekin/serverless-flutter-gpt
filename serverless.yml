@@ -30,6 +30,9 @@ package:
     - venv/**
     - LICENSE
     - test/**
+    - site/**
+    - html_files_index.txt
+    - create_embeddings.py
 
 plugins:
   - serverless-python-requirements

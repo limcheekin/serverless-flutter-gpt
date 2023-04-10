@@ -9,8 +9,6 @@ provider:
   region: ap-southeast-1
   memorySize: 512
   timeout: 180
-  httpApi:
-    cors: true
   iam:
     role:
       statements:
@@ -36,24 +34,11 @@ package:
 
 plugins:
   - serverless-python-requirements
-  - serverless-plugin-warmup
-  - serverless-api-gateway-throttling
 
 custom:
   pythonRequirements:
     dockerizePip: true
     slim: true
-  # https://github.com/juanjoDiaz/serverless-plugin-warmup
-  warmup:
-    twentyFourHoursWarmer:
-      enabled: true
-      events:
-        - schedule: cron(*/5 * ? * * *)
-      concurrency: 1
-  # https://github.com/DianaIonita/serverless-api-gateway-throttling
-  apiGatewayThrottling:
-    maxRequestsPerSecond: 3
-    maxConcurrentRequests: 2
 
 functions:
   ask-question:
@@ -61,11 +46,10 @@ functions:
     # https://www.serverless.com/framework/docs/providers/aws/guide/functions#lambda-function-urls
     url:
       # Allow CORS for all requests from any origin
-      cors: true
-    events:
-      - httpApi:
-          method: POST
-          path: /ask
-          throttling:
-            maxRequestsPerSecond: 3
-            maxConcurrentRequests: 2
+      cors:
+        allowedOrigins:
+          - "*"
+          #- https://url1.com
+          #- https://url2.com
+        allowedMethods:
+          - POST

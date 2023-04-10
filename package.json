@@ -14,8 +14,6 @@
   "author": "Lim Chee Kin",
   "license": "MIT",
   "devDependencies": {
-    "serverless-api-gateway-throttling": "^2.0.3",
-    "serverless-plugin-warmup": "^8.2.1",
     "serverless-python-requirements": "^6.0.0"
   },
   "repository": {
